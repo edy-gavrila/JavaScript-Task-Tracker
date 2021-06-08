@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Javascript Task Manager</title>
+  </head>
+  <body>
+    <header>
+      <h1>Task Manager</h1>
+      <button id="show-form">Show Form</button>
+    </header>
+
+    <section class="task-input hidden">
+      <form class="task-form">
+        <label for="date">Date</label>
+        <input type="date" id="date" />
+        <label for="title">Task Title</label>
+        <input type="text" id="title" />
+        <label for="description">Task Description</label>
+        <textarea name="" id="description" cols="30" rows="5"></textarea>
+        <div>
+          <label for="reminder">Set Remainder</label>
+          <input type="checkbox" id="reminder" />
+        </div>
+        <button type="submit">Add Task</button>
+      </form>
+    </section>
+
+    <section class="tasks">
+    
+    </section>
+
+    <footer><small>&copy; Copyright 2021  Eduard Gavrila</small></footer>
+    <script src="script.js"></script>
+  </body>
+</html>
