@@ -55,6 +55,7 @@ label {
 
 input,
 textarea {
+  width: 100%;
   padding: 5px;
   font-size: 1.2rem;
   margin-bottom: 10px;
@@ -166,6 +167,18 @@ footer {
   .tasks {
     width: 50%;
   }
+}
+
+@media(max-width: 480px){
+  header h1{
+    font-size: 1rem;
+  }
+  header button{
+    padding: 5px;
+    font-size: 1rem;
+  }
+
+
 }
 
 .hidden {
