@@ -11,7 +11,7 @@ const retreiveTasks = () => {
   if (storedTasks) {
     return storedTasks;
   } else {
-    return null;
+    return [];
   }
 };
 
