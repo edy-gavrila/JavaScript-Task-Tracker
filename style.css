@@ -49,12 +49,12 @@ header button {
   flex-direction: column;
 }
 
-.task-form label {
+label {
   font-weight: bold;
 }
 
-.task-form input,
-.task-form textarea {
+input,
+textarea {
   padding: 5px;
   font-size: 1.2rem;
   margin-bottom: 10px;
@@ -63,14 +63,15 @@ header button {
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-.task-form input:focus,
-.task-form textarea:focus {
+input:focus,
+textarea:focus {
   outline: none;
   border: 3px solid rgb(4, 207, 106);
   box-shadow: 0px 0px 5px rgba(4, 207, 106, 0.5);
 }
 
-.task-form button {
+.task-form button,
+.modal button {
   margin-top: 10px;
   padding: 10px;
   border: none;
@@ -81,7 +82,8 @@ header button {
 }
 
 .task-form button:active,
-header button:active {
+header button:active,
+.modal button:active {
   transform: scale(0.98);
 }
 
@@ -110,7 +112,7 @@ header button:active {
   align-items: center;
   justify-content: center;
   min-width: 75px;
- 
+
   color: white;
   background-color: rgb(4, 207, 106);
 }
@@ -133,13 +135,14 @@ header button:active {
   min-height: 100%;
   width: 75%;
   padding: 10px;
+  cursor: pointer;
 }
 
 .task h3 {
   margin: 2px;
 }
 
-.task small{
+.task small {
   word-wrap: normal;
 }
 
@@ -151,11 +154,7 @@ header button:active {
   background-color: red;
 }
 
-footer{
-  position: fixed;
-  bottom: 0;
-  left:0;
-  right:0;
+footer {
   background-color: chartreuse;
   padding: 5px;
   text-align: end;
@@ -169,16 +168,39 @@ footer{
   }
 }
 
-
 .hidden {
-  display: none;
+  display: none !important;
 }
 
-.invalid{
+.backdrop {
+  position:fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+  width: 50%;
+  height: 50%;
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.invalid {
   border: 3px solid red !important;
   box-shadow: 0px 0px 5px red !important;
 }
 
-.reminder{
+.reminder {
   border-left: 4px solid red;
 }

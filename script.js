@@ -27,7 +27,7 @@ const createTask = (task) => {
   const date = new Date(task.date);
 
   const html = `
-  <div class="task-container ">
+  <div class="task-container" id="${task.id}">
     <div class="date ${task.reminder ? "reminder" : ""}">
       <span class="day">${
         date.getDate().toString().length < 2 ? "0" : ""
@@ -37,9 +37,9 @@ const createTask = (task) => {
       })}</span>
       <span class="year">${date.getFullYear()}</span>
     </div>
-    <div class="task">
-      <h3>${task.title}</h3>
-      <small>${task.description}</small>
+    <div class="task" id="${task.id}" >
+      <h3 id="${task.id}">${task.title}</h3>
+      <small id="${task.id}">${task.description}</small>
     </div>
     <button class="delete" id="${
       task.id
@@ -72,20 +72,89 @@ const updateTasks = () => {
   deleteBtns = document.querySelectorAll(".delete");
   deleteBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
-      console.log(btn.id);
       const updatedTasks = tasks.filter((task) => task.id !== btn.id);
       tasks = updatedTasks;
       storeTasks(tasks);
       updateTasks();
     });
   });
+
+  //assign event listeners for doubleclicking a task
+  taskEls = document.querySelectorAll(".task-container");
+  taskEls.forEach((taskEl) => {
+    taskEl.addEventListener("dblclick", (e) => {
+      createModal(e.target.id);
+    });
+  });
 };
+
+//create the html for when a task is clicked
+function createModal(taskId) {
+  const backdropEl = document.getElementById("modal");
+  const taskIndex = tasks.findIndex((task) => task.id === taskId);
+  if (taskIndex < 0) {
+    return;
+  }
+
+  backdropEl.innerHTML = `   
+   <div class="modal">
+    <label for="date">Date</label>
+    <input type="date" id="modal-date" class="date" value = "${tasks[taskIndex].date}"/>
+    <label for="title">Task Title</label>
+    <input type="text" id="modal-title" value="${tasks[taskIndex].title}"/>
+    <label for="description">Task Description</label>
+    <textarea name="" id="modal-desc" cols="30" rows="5">${tasks[taskIndex].description}</textarea>
+    <div>
+      <label for="reminder">Set Remainder</label>
+      <input type="checkbox" id="modal-reminder" ${tasks[taskIndex].reminder ? "checked" : ""} />
+    </div>
+    <button id="updateBtn">Update Task</button>
+  </div>
+    `;
+  const updateBtn = document.getElementById("updateBtn");
+
+  updateBtn.addEventListener("click", () => {
+    const dateEl = document.getElementById("modal-date");
+    const titleEl = document.getElementById("modal-title");
+    const descEl = document.getElementById("modal-desc");
+    const reminderEl = document.getElementById("modal-reminder");
+    
+    const updatedTask = newTask(dateEl, titleEl, descEl, reminderEl);
+    
+    if(updatedTask){
+    tasks[taskIndex] = updatedTask;
+    storeTasks(tasks);
+    updateTasks();
+    backdropEl.classList.add("hidden");
+    }
+
+    
+  });
+
+  backdropEl.classList.remove("hidden");
+
+  backdropEl.addEventListener("click", (e) => {
+    if (e.target.id === "modal") {
+      backdropEl.classList.add("hidden");
+    }
+  });
+}
 
 updateTasks();
 
 //add a new task
 addTaskForm.addEventListener("submit", (e) => {
   e.preventDefault();
+  const task = newTask(dateEl, titleEl, descEl, reminderEl);
+  if (task) {
+    tasks.push(task);
+    storeTasks(tasks);
+    updateTasks();
+  }
+});
+
+//adds a new task
+function newTask(dateEl, titleEl, descEl, reminderEl) {
   const date = new Date(dateEl.value);
   if (
     !(
@@ -106,7 +175,7 @@ addTaskForm.addEventListener("submit", (e) => {
     descEl.classList.add("invalid");
     return;
   }
-  //if all date is valid careate a new task object
+  //if all date is valid create a new task object
   const newTask = {
     id: Math.random().toString().substr(2),
     date: dateEl.value,
@@ -114,15 +183,13 @@ addTaskForm.addEventListener("submit", (e) => {
     description: descEl.value,
     reminder: reminderEl.checked ? true : false,
   };
-
-  tasks.push(newTask);
-  storeTasks(tasks);
-  updateTasks();
   dateEl.value = "";
   titleEl.value = "";
   descEl.value = "";
   reminderEl.checked = false;
-});
+
+  return newTask;
+}
 
 //remove invalid class on input
 dateEl.addEventListener("input", (e) => e.target.classList.remove("invalid"));
