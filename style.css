@@ -221,10 +221,12 @@ footer {
   width: 60%;
   height: 60%;
   padding: 10px;
+  padding-bottom: 20px;
   background-color: white;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .modal::-webkit-scrollbar {
@@ -232,7 +234,7 @@ footer {
 }
 
 .delete-dlg {
-  width: 80%;
+  width: 80%; 
   height: 20%;
   display: flex;
   flex-direction: column;

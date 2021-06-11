@@ -89,7 +89,7 @@ const updateTasks = (tasks) => {
   });
   tasksContainer.innerHTML = html;
 
-  //assign event listeners for deleteing a task
+  //assign event listeners for deleting a task
   deleteBtns = document.querySelectorAll(".delete");
   deleteBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -115,6 +115,7 @@ function createModal(taskId) {
 
   backdropEl.innerHTML = `   
    <div class="modal">
+   <div>
    <p>Ammend Task</p>
     <label for="date">Date</label>
     <input type="date" id="modal-date" class="date" value = "${
@@ -135,6 +136,7 @@ function createModal(taskId) {
       <input type="checkbox" id="modal-completed" ${
         tasks[taskIndex].completed ? "checked" : ""
       } />
+    </div>
     </div>
     <button id="updateBtn">Update Task</button>
   </div>
@@ -220,7 +222,6 @@ function newTask(dateEl, titleEl, descEl, reminderEl, completedEl) {
 }
 
 function deleteTaskWithConfirmation(taskId) {
-  console.log(taskId);
   backdropEl.innerHTML = `
   <div class = "modal delete-dlg">
   <h3>Are you sure you want to delete the task?</h3>
