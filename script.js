@@ -5,6 +5,19 @@ const titleEl = document.getElementById("title");
 const descEl = document.getElementById("description");
 const reminderEl = document.getElementById("reminder");
 const completedEl = document.getElementById("completed");
+const backdropEl = document.getElementById("modal");
+
+//hide the backdrop when clicked;
+const hideBackdrop = (e) => {
+  if (e.target.id === "modal") {
+    backdropEl.classList.add("hidden");
+  }
+};
+
+//add the event listener to the backdrop
+backdropEl.addEventListener("click", (e) => {
+  hideBackdrop(e);
+});
 
 //check for stored tasks in local storage and retrive them
 const retreiveTasks = () => {
@@ -38,8 +51,10 @@ const createTask = (task) => {
       })}</span>
       <span class="year">${date.getFullYear()}</span>
     </div>
-    <div class="completed">
-    ${task.completed ? "<i class='fas fa-2x fa-check'></i>" : ""}
+    <div class="completed" id="${task.id}">
+    ${
+      task.completed ? `<i class='fas fa-2x fa-check' id="${task.id}"></i>` : ""
+    }
     </div>
     <div class="task" id="${task.id}" >
       <h3 id="${task.id}">${task.title}</h3>
@@ -47,7 +62,7 @@ const createTask = (task) => {
     </div>
     <button class="delete" id="${
       task.id
-    }"><i class="fas fa-2x fa-times"></i></button>
+    }-delete"><i class="fas fa-2x fa-times"></i></button>
   </div>
   `;
 
@@ -55,7 +70,7 @@ const createTask = (task) => {
 };
 
 //update the DOM with the current tasks
-const updateTasks = () => {
+const updateTasks = (tasks) => {
   const tasksContainer = document.querySelector(".tasks");
 
   if (tasks.length > 0) {
@@ -67,6 +82,8 @@ const updateTasks = () => {
   }
 
   html = "";
+  tasks = [...tasks];
+  tasks.reverse();
   tasks.forEach((task) => {
     html += createTask(task);
   });
@@ -76,17 +93,14 @@ const updateTasks = () => {
   deleteBtns = document.querySelectorAll(".delete");
   deleteBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
-      const updatedTasks = tasks.filter((task) => task.id !== btn.id);
-      tasks = updatedTasks;
-      storeTasks(tasks);
-      updateTasks();
+      deleteTaskWithConfirmation(btn.id.slice(0,-7))
     });
   });
 
   //assign event listeners for doubleclicking a task
   taskEls = document.querySelectorAll(".task-container");
   taskEls.forEach((taskEl) => {
-    taskEl.addEventListener("dblclick", (e) => {
+    taskEl.addEventListener("click", (e) => {
       createModal(e.target.id);
     });
   });
@@ -94,7 +108,6 @@ const updateTasks = () => {
 
 //create the html for when a task is clicked
 function createModal(taskId) {
-  const backdropEl = document.getElementById("modal");
   const taskIndex = tasks.findIndex((task) => task.id === taskId);
   if (taskIndex < 0) {
     return;
@@ -134,26 +147,26 @@ function createModal(taskId) {
     const reminderEl = document.getElementById("modal-reminder");
     const completedEl = document.getElementById("modal-completed");
 
-    const updatedTask = newTask(dateEl, titleEl, descEl, reminderEl, completedEl);
+    const updatedTask = newTask(
+      dateEl,
+      titleEl,
+      descEl,
+      reminderEl,
+      completedEl
+    );
 
     if (updatedTask) {
       tasks[taskIndex] = updatedTask;
       storeTasks(tasks);
-      updateTasks();
+      updateTasks(tasks);
       backdropEl.classList.add("hidden");
     }
   });
 
   backdropEl.classList.remove("hidden");
-
-  backdropEl.addEventListener("click", (e) => {
-    if (e.target.id === "modal") {
-      backdropEl.classList.add("hidden");
-    }
-  });
 }
 
-updateTasks();
+updateTasks(tasks);
 
 //add a new task
 addTaskForm.addEventListener("submit", (e) => {
@@ -162,7 +175,7 @@ addTaskForm.addEventListener("submit", (e) => {
   if (task) {
     tasks.push(task);
     storeTasks(tasks);
-    updateTasks();
+    updateTasks(tasks);
   }
 });
 
@@ -203,6 +216,33 @@ function newTask(dateEl, titleEl, descEl, reminderEl, completedEl) {
   reminderEl.checked = false;
 
   return newTask;
+}
+
+function deleteTaskWithConfirmation(taskId) {
+  console.log(taskId);
+  backdropEl.innerHTML = `
+  <div class = "modal delete-dlg">
+  <h3>Are you sure you want to delete the task?</h3>
+  <div>
+  <button id="delete-conf-btn">Yes, Delete</button>
+  <button class="cancel-btn">Cancel</button>
+  </div>
+  <div>
+  `;
+  cancelBtn = document.querySelector(".cancel-btn");
+  cancelBtn.addEventListener("click", () => {
+    backdropEl.classList.add("hidden");
+  })
+
+  confBtn = document.getElementById("delete-conf-btn");
+  confBtn.addEventListener("click", () => {
+    const updatedTasks = tasks.filter((task) => task.id !== taskId);
+    tasks = updatedTasks;
+    storeTasks(tasks);
+    updateTasks(tasks);
+    backdropEl.classList.add("hidden");
+  })
+  backdropEl.classList.remove("hidden");
 }
 
 //remove invalid class on input

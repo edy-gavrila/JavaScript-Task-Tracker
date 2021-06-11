@@ -14,11 +14,13 @@
     <title>Javascript Task Manager</title>
   </head>
   <body>
-     <div id="modal" class="backdrop hidden"></div>
+    <div id="modal" class="backdrop hidden"></div>
     <header>
       <h1>Task Manager</h1>
-      <button id="show-form">Hide Form</button>
-     
+      <div class = "nav-btn-container">
+        <button class="help-btn"><i class="fas fa-2x fa-question-circle"></i></button>
+        <button id="show-form">Hide Form</button>
+      </div>
     </header>
 
     <section class="task-input">
@@ -33,17 +35,15 @@
           <label for="reminder">Set Remainder</label>
           <input type="checkbox" id="reminder" />
           <label for="completed">Task Already Completed</label>
-          <input type="checkbox" id="completed"/>
+          <input type="checkbox" id="completed" />
         </div>
         <button type="submit">Add Task</button>
       </form>
     </section>
 
-    <section class="tasks">
-    
-    </section>
+    <section class="tasks"></section>
 
-    <footer><small>&copy; Copyright 2021  Eduard Gavrila</small></footer>
+    <footer><small>&copy; Copyright 2021 Eduard Gavrila</small></footer>
     <script src="script.js" type="text/javascript"></script>
   </body>
 </html>

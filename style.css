@@ -27,14 +27,26 @@ header h1 {
   margin: 10px 10%;
 }
 
+header .nav-btn-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10%;
+}
+
 header button {
   padding: 10px;
-  margin-right: 10%;
   border: none;
   background-color: rgb(4, 207, 106);
   font-size: 1.2rem;
   color: white;
   border-radius: 5px;
+}
+
+header .help-btn{
+  padding: 0;
+  background-color: transparent;
+  margin-right: 30px;
 }
 
 .task-input {
@@ -55,7 +67,7 @@ label {
 
 input[type="checkbox"]{
   margin-right: 20px;
-  
+
 }
 
 input[type="date"],
@@ -88,6 +100,11 @@ textarea:focus {
   border-radius: 5px;
 }
 
+.modal .cancel-btn{
+  background-color: red;
+  margin-left: 20px;
+}
+
 .task-form button:active,
 header button:active,
 .modal button:active {
@@ -108,7 +125,6 @@ header button:active,
   overflow: hidden;
   width: 100%;
   min-height: 75px;
-  height: 75px;
   background-color: white;
   margin: 10px 0;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
@@ -135,12 +151,12 @@ header button:active,
 }
 
 .task-container .completed {
-  height: 100%;
   width: 45px;
   padding-left: 10px;
   display: flex;
   align-items: center;
   color: green;
+  cursor: pointer;
 }
 
 .task {
@@ -166,8 +182,15 @@ header button:active,
   visibility: visible;
   min-width: 75px;
   border: none;
-  color: white;
+  color: red;
+  background-color: white;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.task-container .delete:hover{
   background-color: red;
+  color: white;
 }
 
 footer {
@@ -205,6 +228,15 @@ footer {
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+}
+
+.delete-dlg{
+  width: 80%; 
+  height: 20% ;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .invalid {
