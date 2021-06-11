@@ -4,6 +4,7 @@ const dateEl = document.getElementById("date");
 const titleEl = document.getElementById("title");
 const descEl = document.getElementById("description");
 const reminderEl = document.getElementById("reminder");
+const completedEl = document.getElementById("completed");
 
 //check for stored tasks in local storage and retrive them
 const retreiveTasks = () => {
@@ -36,6 +37,9 @@ const createTask = (task) => {
         month: "long",
       })}</span>
       <span class="year">${date.getFullYear()}</span>
+    </div>
+    <div class="completed">
+    ${task.completed ? "<i class='fas fa-2x fa-check'></i>" : ""}
     </div>
     <div class="task" id="${task.id}" >
       <h3 id="${task.id}">${task.title}</h3>
@@ -99,14 +103,24 @@ function createModal(taskId) {
   backdropEl.innerHTML = `   
    <div class="modal">
     <label for="date">Date</label>
-    <input type="date" id="modal-date" class="date" value = "${tasks[taskIndex].date}"/>
+    <input type="date" id="modal-date" class="date" value = "${
+      tasks[taskIndex].date
+    }"/>
     <label for="title">Task Title</label>
     <input type="text" id="modal-title" value="${tasks[taskIndex].title}"/>
     <label for="description">Task Description</label>
-    <textarea name="" id="modal-desc" cols="30" rows="5">${tasks[taskIndex].description}</textarea>
+    <textarea name="" id="modal-desc" cols="30" rows="5">${
+      tasks[taskIndex].description
+    }</textarea>
     <div>
       <label for="reminder">Set Remainder</label>
-      <input type="checkbox" id="modal-reminder" ${tasks[taskIndex].reminder ? "checked" : ""} />
+      <input type="checkbox" id="modal-reminder" ${
+        tasks[taskIndex].reminder ? "checked" : ""
+      } />
+      <label for="completed">Task Completed</label>
+      <input type="checkbox" id="modal-completed" ${
+        tasks[taskIndex].completed ? "checked" : ""
+      } />
     </div>
     <button id="updateBtn">Update Task</button>
   </div>
@@ -118,17 +132,16 @@ function createModal(taskId) {
     const titleEl = document.getElementById("modal-title");
     const descEl = document.getElementById("modal-desc");
     const reminderEl = document.getElementById("modal-reminder");
-    
-    const updatedTask = newTask(dateEl, titleEl, descEl, reminderEl);
-    
-    if(updatedTask){
-    tasks[taskIndex] = updatedTask;
-    storeTasks(tasks);
-    updateTasks();
-    backdropEl.classList.add("hidden");
-    }
+    const completedEl = document.getElementById("modal-completed");
 
-    
+    const updatedTask = newTask(dateEl, titleEl, descEl, reminderEl, completedEl);
+
+    if (updatedTask) {
+      tasks[taskIndex] = updatedTask;
+      storeTasks(tasks);
+      updateTasks();
+      backdropEl.classList.add("hidden");
+    }
   });
 
   backdropEl.classList.remove("hidden");
@@ -145,7 +158,7 @@ updateTasks();
 //add a new task
 addTaskForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const task = newTask(dateEl, titleEl, descEl, reminderEl);
+  const task = newTask(dateEl, titleEl, descEl, reminderEl, completedEl);
   if (task) {
     tasks.push(task);
     storeTasks(tasks);
@@ -154,7 +167,7 @@ addTaskForm.addEventListener("submit", (e) => {
 });
 
 //adds a new task
-function newTask(dateEl, titleEl, descEl, reminderEl) {
+function newTask(dateEl, titleEl, descEl, reminderEl, completedEl) {
   const date = new Date(dateEl.value);
   if (
     !(
@@ -182,6 +195,7 @@ function newTask(dateEl, titleEl, descEl, reminderEl) {
     title: titleEl.value,
     description: descEl.value,
     reminder: reminderEl.checked ? true : false,
+    completed: completedEl.checked ? true : false,
   };
   dateEl.value = "";
   titleEl.value = "";

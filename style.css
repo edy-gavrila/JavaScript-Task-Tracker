@@ -53,7 +53,13 @@ label {
   font-weight: bold;
 }
 
-input[type=date], input[type=text],
+input[type="checkbox"]{
+  margin-right: 20px;
+  
+}
+
+input[type="date"],
+input[type="text"],
 textarea {
   width: 100%;
   padding: 5px;
@@ -63,7 +69,6 @@ textarea {
   border-radius: 5px;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
-
 
 input:focus,
 textarea:focus {
@@ -103,6 +108,7 @@ header button:active,
   overflow: hidden;
   width: 100%;
   min-height: 75px;
+  height: 75px;
   background-color: white;
   margin: 10px 0;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
@@ -114,7 +120,6 @@ header button:active,
   align-items: center;
   justify-content: center;
   min-width: 75px;
-
   color: white;
   background-color: rgb(4, 207, 106);
 }
@@ -127,6 +132,15 @@ header button:active,
 }
 .task-container .date .year {
   font-size: 1.3rem;
+}
+
+.task-container .completed {
+  height: 100%;
+  width: 45px;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  color: green;
 }
 
 .task {
@@ -163,31 +177,14 @@ footer {
   font-weight: bold;
 }
 
-@media (min-width: 960px) {
-  .task-input,
-  .tasks {
-    width: 50%;
-  }
-}
 
-@media(max-width: 480px){
-  header h1{
-    font-size: 1rem;
-  }
-  header button{
-    padding: 5px;
-    font-size: 1rem;
-  }
-
-
-}
 
 .hidden {
   display: none !important;
 }
 
 .backdrop {
-  position:fixed;
+  position: fixed;
   z-index: 1000;
   top: 0;
   left: 0;
@@ -201,7 +198,7 @@ footer {
 }
 
 .modal {
-  width: 50%;
+  width: 60%;
   height: 50%;
   padding: 10px;
   background-color: white;
@@ -217,4 +214,25 @@ footer {
 
 .reminder {
   border-left: 4px solid red;
+}
+
+@media (min-width: 960px) {
+  .task-input,
+  .tasks {
+    width: 50%;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1rem;
+  }
+  header button {
+    padding: 5px;
+    font-size: 1rem;
+  }
+  .modal {
+    width: 90%;
+    height: 75%;
+  }
 }
