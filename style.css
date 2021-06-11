@@ -27,7 +27,7 @@ header h1 {
   margin: 10px 10%;
 }
 
-header .nav-btn-container{
+header .nav-btn-container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,7 +43,7 @@ header button {
   border-radius: 5px;
 }
 
-header .help-btn{
+header .help-btn {
   padding: 0;
   background-color: transparent;
   margin-right: 30px;
@@ -65,9 +65,8 @@ label {
   font-weight: bold;
 }
 
-input[type="checkbox"]{
+input[type="checkbox"] {
   margin-right: 20px;
-
 }
 
 input[type="date"],
@@ -100,7 +99,7 @@ textarea:focus {
   border-radius: 5px;
 }
 
-.modal .cancel-btn{
+.modal .cancel-btn {
   background-color: red;
   margin-left: 20px;
 }
@@ -188,7 +187,7 @@ header button:active,
   cursor: pointer;
 }
 
-.task-container .delete:hover{
+.task-container .delete:hover {
   background-color: red;
   color: white;
 }
@@ -199,8 +198,6 @@ footer {
   text-align: end;
   font-weight: bold;
 }
-
-
 
 .hidden {
   display: none !important;
@@ -222,7 +219,7 @@ footer {
 
 .modal {
   width: 60%;
-  height: 50%;
+  height: 60%;
   padding: 10px;
   background-color: white;
   border-radius: 10px;
@@ -230,13 +227,34 @@ footer {
   flex-direction: column;
 }
 
-.delete-dlg{
-  width: 80%; 
-  height: 20% ;
+.modal::-webkit-scrollbar {
+  display: none;
+}
+
+.delete-dlg {
+  width: 80%;
+  height: 20%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+}
+
+.help-dlg {
+  width: 90%;
+  height: 80%;
+  padding: 20px 20px;
+  justify-content: space-between;
+  overflow: scroll;
+}
+
+.help-dlg h2 {
+  text-align: center;
+}
+
+.help-dlg ul li {
+  margin-bottom: 5px;
 }
 
 .invalid {
@@ -266,5 +284,9 @@ footer {
   .modal {
     width: 90%;
     height: 75%;
+  }
+
+  header .help-btn {
+    margin-right: 10px;
   }
 }

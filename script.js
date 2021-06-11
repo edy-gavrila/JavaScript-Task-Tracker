@@ -115,6 +115,7 @@ function createModal(taskId) {
 
   backdropEl.innerHTML = `   
    <div class="modal">
+   <p>Ammend Task</p>
     <label for="date">Date</label>
     <input type="date" id="modal-date" class="date" value = "${
       tasks[taskIndex].date
