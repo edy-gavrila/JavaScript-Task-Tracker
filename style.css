@@ -229,9 +229,7 @@ footer {
   justify-content: space-between;
 }
 
-.modal::-webkit-scrollbar {
-  display: none;
-}
+
 
 .delete-dlg {
   width: 80%; 
@@ -249,6 +247,10 @@ footer {
   padding: 20px 20px;
   justify-content: space-between;
   overflow: scroll;
+}
+
+.help-dlg::-webkit-scrollbar {
+  display: none;
 }
 
 .help-dlg h2 {
